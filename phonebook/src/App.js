@@ -15,6 +15,14 @@ const App = () =>
   {
     event.preventDefault() // Prevent form submission from refreshing the page
 
+    // Check if the name already exists in the phonebook
+    if ( persons.some( person => person.name === newName ) )
+    {
+      alert( `${ newName } is already added to phonebook` )
+      setNewName( '' ) // Clear the form input
+      return
+    }
+
     // Add the new person to the phonebook
     const newPerson = { name: newName }
     setPersons( persons.concat( newPerson ) )
