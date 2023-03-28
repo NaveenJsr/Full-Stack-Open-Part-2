@@ -2,39 +2,38 @@ import { useState } from 'react'
 
 const App = () =>
 {
-  // Initialize state with one person
   const [ persons, setPersons ] = useState( [
-    { name: 'Arto Hellas' }
+    { name: 'Arto Hellas', number: '123456789' }
   ] )
-
-  // Initialize state for the form input
   const [ newName, setNewName ] = useState( '' )
+  const [ newNumber, setNewNumber ] = useState( '' )
 
-  // Handler function for form submission
   const addPerson = ( event ) =>
   {
-    event.preventDefault() // Prevent form submission from refreshing the page
-
-    // Check if the name already exists in the phonebook
+    event.preventDefault()
+    const personObject = {
+      name: newName,
+      number: newNumber
+    }
     if ( persons.some( person => person.name === newName ) )
     {
-      alert( `${ newName } is already added to phonebook` )
-      setNewName( '' ) // Clear the form input
-      return
+      alert( `${ newName } is already added to the phonebook` )
+    } else
+    {
+      setPersons( persons.concat( personObject ) )
+      setNewName( '' )
+      setNewNumber( '' )
     }
-
-    // Add the new person to the phonebook
-    const newPerson = { name: newName }
-    setPersons( persons.concat( newPerson ) )
-
-    // Clear the form input
-    setNewName( '' )
   }
 
-  // Handler function for form input changes
   const handleNameChange = ( event ) =>
   {
     setNewName( event.target.value )
+  }
+
+  const handleNumberChange = ( event ) =>
+  {
+    setNewNumber( event.target.value )
   }
 
   return (
@@ -45,12 +44,17 @@ const App = () =>
           name: <input value={ newName } onChange={ handleNameChange } />
         </div>
         <div>
+          number: <input value={ newNumber } onChange={ handleNumberChange } />
+        </div>
+        <div>
           <button type="submit">add</button>
         </div>
       </form>
       <h2>Numbers</h2>
       <ul>
-        { persons.map( person => <li key={ person.name }>{ person.name }</li> ) }
+        { persons.map( person =>
+          <li key={ person.name }>{ person.name } { person.number }</li>
+        ) }
       </ul>
     </div>
   )
