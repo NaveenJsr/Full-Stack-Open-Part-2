@@ -1,9 +1,10 @@
 import React from 'react'
 
-function Notification({type,message}) {
+function Notification ( { type, message } )
+{
   return (
-    <div className={`notify ${type}` }>
-        {message}
+    <div className={ `notify ${ type }` }>
+      { message }
     </div>
   )
 }
