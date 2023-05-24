@@ -14,9 +14,16 @@ const savePhone = ( contact ) =>
     return request.then( response => response.data )
 }
 
+const deletePhone = ( id ) =>
+{
+    const request = axios.delete( `${ baseUrl }/${ id }` )
+    return request
+}
+
 const ApiService = {
     getAll,
-    savePhone
+    savePhone,
+    deletePhone
 }
 
 export default ApiService
